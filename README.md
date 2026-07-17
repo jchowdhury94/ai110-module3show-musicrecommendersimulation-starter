@@ -17,18 +17,38 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
 
-Some prompts to answer:
+This recommender compares the user's preferences with every song in the dataset to find the best matches. It calculates a similarity score for each song, ranks the songs from highest to lowest score, and recommends the top matches.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+**Song features:**
+- Genre
+- Mood
+- Energy
+- Acousticness
 
-You can include a simple diagram or bullet list if helpful.
+**UserProfile features:**
+- Favorite genre
+- Favorite mood
+- Target energy
+- Likes acoustic music
 
+### Algorithm Recipe
+
+1. Start each song with a score of 0.
+2. Add **2.0 points** if the song's genre matches the user's favorite genre.
+3. Add **1.0 point** if the song's mood matches the user's favorite mood.
+4. Calculate energy similarity using:
+   ```
+   energy_points = (1 - abs(song_energy - target_energy)) * 2
+   ```
+   Songs with energy closer to the user's target receive more points.
+5. If the user likes acoustic music, add **1.0 point** for songs with high acousticness.
+6. Add the points to get a final score.
+7. Rank the songs by score and recommend the top matches.
+
+### Potential Biases
+
+This recommender may over-prioritize genre and overlook songs from other genres that have a similar mood or energy. It also only considers a few song features and does not account for lyrics, artists, or personal listening history.
 ---
 
 ## Getting Started
@@ -68,17 +88,32 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Sample Recommendation Output
 
-Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
+```
+Loaded songs: 18
+
+Top recommendations:
+
+1. Sunrise City — Neon Echo
+   Score: 4.96
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.96)
+
+2. Gym Hero — Max Pulse
+   Score: 3.74
+   Reasons: genre match (+2.0), energy similarity (+1.74)
+
+3. Rooftop Lights — Indigo Parade
+   Score: 2.92
+   Reasons: mood match (+1.0), energy similarity (+1.92)
+
+4. Concrete Bloom — MC Kestrel
+   Score: 2.00
+   Reasons: energy similarity (+2.00)
+
+5. Night Drive Loop — Neon Echo
+   Score: 1.90
+   Reasons: energy similarity (+1.90)
 
 ```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
-```
-
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
 ---
