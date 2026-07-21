@@ -89,32 +89,175 @@ You can add more tests in `tests/test_recommender.py`.
 ## Sample Recommendation Output
 
 ```
-Loaded songs: 18
+=== Profile: High-Energy Pop ===
+Preferences: {'genre': 'pop', 'mood': 'happy', 'energy': 0.85, 'likes_acoustic': False}
 
-Top recommendations:
+Top 5 recommendations:
 
 1. Sunrise City — Neon Echo
-   Score: 4.96
-   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.96)
+   Score: 4.94
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.94)
 
 2. Gym Hero — Max Pulse
-   Score: 3.74
-   Reasons: genre match (+2.0), energy similarity (+1.74)
+   Score: 3.84
+   Reasons: genre match (+2.0), energy similarity (+1.84)
 
 3. Rooftop Lights — Indigo Parade
-   Score: 2.92
-   Reasons: mood match (+1.0), energy similarity (+1.92)
+   Score: 2.82
+   Reasons: mood match (+1.0), energy similarity (+1.82)
 
-4. Concrete Bloom — MC Kestrel
-   Score: 2.00
-   Reasons: energy similarity (+2.00)
+4. Pulse Horizon — Kilowatt Youth
+   Score: 1.94
+   Reasons: energy similarity (+1.94)
 
-5. Night Drive Loop — Neon Echo
+5. Concrete Bloom — MC Kestrel
    Score: 1.90
    Reasons: energy similarity (+1.90)
+```
 
 ```
+=== Profile: Chill Lofi ===
+Preferences: {'genre': 'lofi', 'mood': 'chill', 'energy': 0.3, 'likes_acoustic': True}
+
+Top 5 recommendations:
+
+1. Library Rain — Paper Lanterns
+   Score: 5.76
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.90), acoustic preference (+0.86)
+
+2. Midnight Coding — LoRoom
+   Score: 5.47
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.76), acoustic preference (+0.71)
+
+3. Focus Flow — LoRoom
+   Score: 4.58
+   Reasons: genre match (+2.0), energy similarity (+1.80), acoustic preference (+0.78)
+
+4. Spacewalk Thoughts — Orbit Bloom
+   Score: 3.88
+   Reasons: mood match (+1.0), energy similarity (+1.96), acoustic preference (+0.92)
+
+5. Coffee Shop Stories — Slow Stereo
+   Score: 2.75
+   Reasons: energy similarity (+1.86), acoustic preference (+0.89)
+```
+
+```
+=== Profile: Deep Intense Rock ===
+Preferences: {'genre': 'rock', 'mood': 'intense', 'energy': 0.9, 'likes_acoustic': False}
+
+Top 5 recommendations:
+
+1. Storm Runner — Voltline
+   Score: 4.98
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.98)
+
+2. Gym Hero — Max Pulse
+   Score: 2.94
+   Reasons: mood match (+1.0), energy similarity (+1.94)
+
+3. Pulse Horizon — Kilowatt Youth
+   Score: 1.96
+   Reasons: energy similarity (+1.96)
+
+4. Neon Requiem — Glass Cathedral
+   Score: 1.86
+   Reasons: energy similarity (+1.86)
+
+5. Sunrise City — Neon Echo
+   Score: 1.84
+   Reasons: energy similarity (+1.84)
+```
+
+```
+=== Profile: Acoustic Jazz Lover ===
+Preferences: {'genre': 'jazz', 'mood': 'relaxed', 'energy': 0.4, 'likes_acoustic': True}
+
+Top 5 recommendations:
+
+1. Coffee Shop Stories — Slow Stereo
+   Score: 5.83
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+1.94), acoustic preference (+0.89)
+
+2. Focus Flow — LoRoom
+   Score: 2.78
+   Reasons: energy similarity (+2.00), acoustic preference (+0.78)
+
+3. Library Rain — Paper Lanterns
+   Score: 2.76
+   Reasons: energy similarity (+1.90), acoustic preference (+0.86)
+
+4. Spacewalk Thoughts — Orbit Bloom
+   Score: 2.68
+   Reasons: energy similarity (+1.76), acoustic preference (+0.92)
+
+5. Midnight Coding — LoRoom
+   Score: 2.67
+   Reasons: energy similarity (+1.96), acoustic preference (+0.71)
+```
+
+```
+=== Profile: Conflicting Sad + High Energy ===
+Preferences: {'genre': 'blues', 'mood': 'sad', 'energy': 0.95, 'likes_acoustic': False}
+
+Top 5 recommendations:
+
+1. Backroad Blues — Otis Rambler
+   Score: 3.76
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.76)
+
+2. Gym Hero — Max Pulse
+   Score: 1.96
+   Reasons: energy similarity (+1.96)
+
+3. Neon Requiem — Glass Cathedral
+   Score: 1.96
+   Reasons: energy similarity (+1.96)
+
+4. Storm Runner — Voltline
+   Score: 1.92
+   Reasons: energy similarity (+1.92)
+
+5. Pulse Horizon — Kilowatt Youth
+   Score: 1.86
+   Reasons: energy similarity (+1.86)
+```
+
+```
+=== Profile: Out-of-Range Energy ===
+Preferences: {'genre': 'metal', 'mood': 'angry', 'energy': 1.5, 'likes_acoustic': False}
+
+Top 5 recommendations:
+
+1. Neon Requiem — Glass Cathedral
+   Score: 3.94
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.94)
+
+2. Gym Hero — Max Pulse
+   Score: 0.86
+   Reasons: energy similarity (+0.86)
+
+3. Storm Runner — Voltline
+   Score: 0.82
+   Reasons: energy similarity (+0.82)
+
+4. Pulse Horizon — Kilowatt Youth
+   Score: 0.76
+   Reasons: energy similarity (+0.76)
+
+5. Sunrise City — Neon Echo
+   Score: 0.64
+   Reasons: energy similarity (+0.64)
+```
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
+
+---
+
+### Accuracy and Surprises
+
+For the High-Energy Pop profile, the top result ("Sunrise City") felt reasonable because it matched both the preferred genre (pop) and mood (happy), and its energy (0.82) was close to the target (0.85). It earned points in all three major categories — genre (+2.0), mood (+1.0), and energy (+1.94) — for a score of 4.94, well ahead of the runner-up ("Gym Hero," 3.84), which only matched on genre and energy.
+
+One surprising pattern: songs like "Pulse Horizon" and "Concrete Bloom" still made the High-Energy Pop top 5 with no genre or mood match at all — their entire score came from energy similarity alone (+1.94 and +1.90). The same thing happens for Deep Intense Rock, where 4 of the top 5 songs match on energy only. With just 18 songs in the catalog, there usually aren't enough genre-and-mood matches to fill five slots, so the scorer falls back to ranking by energy alone. That's a useful signal, but it means "top 5" doesn't always mean "a good match" — it can just mean "the least bad option available."
 
 ---
 
